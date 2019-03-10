@@ -1,0 +1,112 @@
+---
+title: "DATA 605 HW 7"
+author: "Yohannes Deboch"
+date: "March 10, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+1. Let X1, X2, . . . , Xn be n mutually independent random variables, each of
+which is uniformly distributed on the integers from 1 to k. Let Y denote the
+minimum of the Xi’s. Find the distribution of Y .
+
+Answer: Y denotes the minimum of $X_{i}$s.
+In order to count the distribution of m(j) = P(X = j) we need to find two things.
+
+We need to find two things.
+1. Count the number of ways that we can assign $X_{1}$,$X_{2}$,...,$X_{n}$ to values between j and k at least one $X_{i}$  being assigned to j
+Number of ways of getting  = 1 is $k^{n} - (k-1)^{n}$, since $k^{n}$ represents the total number of options and $(k-1)^n$ represents all of the options where non of the $X_{i}$'s are equal to 1.
+For Y = 2, $k^{n} - (k-1)^{n} -[k^n-(k-1)^n]$
+
+Generalizing for Y = j,
+$(k- j + 1)^n - (k-j)^n$ ways to assign $X_{1}$,$X_{2}$,...,$X_{n}$ so that the minimum value is j.
+2. Total number of possible ways to assign $X_{1}$,$X_{2}$,...,$X_{n}$ to values between 1 and k.
+
+
+$X_{i}$ has k possibilities: 1,2,..,k. Total possible number of assignment is $k^{n}$.
+
+Divide 1 by 2 to we find the distribution
+
+$\frac{(k-j+1)^n-(k-j)^n-(k-j)^n}{k^n}$
+
+
+
+2. Your organization owns a copier (future lawyers, etc.) or MRI (future doctors).
+This machine has a manufacturer’s expected lifetime of 10 years. This means
+that we expect one failure every ten years. (Include the probability statements
+and R Code for each part.).
+
+a. What is the probability that the machine will fail after 8 years?. Provide also the
+expected value and standard deviation. Model as a geometric. (Hint: the probability is
+equivalent to not failing during the first 8 years..)
+
+Answer: 
+```{r}
+p = 1/10
+q = 1-p
+n <- 8
+pgeom(8,p,lower.tail = F)
+```
+The probability that the machine will fail after 8 years is 0.3874205.
+
+```{r}
+1/p
+sqrt(q/p^2)
+```
+Expected value 10 and standard deviation 9.486833
+
+b. What is the probability that the machine will fail after 8 years?. Provide also the
+expected value and standard deviation. Model as an exponential.
+
+Answer: 
+```{r}
+lambda <- 1/10
+k = 8
+exp(-lambda*k)
+```
+The probability following an exponential distribution is 0.449329.
+
+```{r}
+1/lambda
+sqrt(1/lambda^2)
+```
+The mean and standard deviation is 10.
+
+c. What is the probability that the machine will fail after 8 years?. Provide also the
+expected value and standard deviation. Model as a binomial. (Hint: 0 success in 8
+years)
+
+Answer: 
+```{r}
+n <- 8
+p <- 1/10
+q <- 1-p
+k <- 0
+
+dbinom(k, n, p)
+```
+
+The probability following a binomial distribution is  0.4304672.
+```{r}
+n*p
+sqrt(n*p*q)
+```
+Following binomial distribution mean is  0.8 and standard deviation is 0.8485281.
+
+d. What is the probability that the machine will fail after 8 years?. Provide also the
+expected value and standard deviation. Model as a Poisson.
+
+Answer: 
+```{r}
+lambda <- 8/10
+ppois(0, lambda = 0.8)
+```
+
+The probability following a poison distribution is  0.449329.
+```{r}
+sqrt(0.8)
+```
+Following Poisson distribution mean is  0.8 and standard deviation is 0.8944272.
+
